@@ -820,6 +820,10 @@ public class ScrobblerService extends Service {
 					success = true; //Remove the track from the queue
 				}
 				if(success) {
+					ScrobblerQueueEntry[] array = {e};
+					LocalScrobbler ls = new LocalScrobbler();
+					ls.Scrobble(array);
+					
 					ScrobblerQueueDao.getInstance().removeFromQueue(e);
 				} 
 				else {
