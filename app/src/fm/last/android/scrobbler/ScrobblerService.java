@@ -30,8 +30,8 @@ import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
 import android.app.AlarmManager;
-import android.app.Notification;
-import android.app.NotificationManager;
+//import android.app.Notification;
+//import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.ComponentName;
@@ -276,8 +276,8 @@ public class ScrobblerService extends Service {
 				    				   handleIntent(i);
 				    			   } else { // Media player was paused
 				    				   mCurrentTrack = null;
-				    				   NotificationManager nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-				    				   nm.cancel(1338);
+				    				   //NotificationManager nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+				    				   //nm.cancel(1338);
 				    				   stopSelf();
 				    			   }
 				    		   } catch (RemoteException e) {
@@ -324,8 +324,8 @@ public class ScrobblerService extends Service {
 								handleIntent(i);
 							} else { // Media player was paused
 								mCurrentTrack = null;
-								NotificationManager nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-								nm.cancel(1338);
+								//NotificationManager nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+								//nm.cancel(1338);
 								stopSelf();
 							}
 						} catch (RemoteException e) {
@@ -596,6 +596,7 @@ public class ScrobblerService extends Service {
 			}
 
 			if (auth == null) {
+				/*
 				NotificationManager nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 				nm.cancel(1338);
 
@@ -609,6 +610,7 @@ public class ScrobblerService extends Service {
 				notification.setLatestEventInfo(this, getString(R.string.scrobbler_info_title), info, contentIntent);
 				notification.flags |= Notification.FLAG_ONGOING_EVENT;
 				nm.notify(1338, notification);
+				*/
 			}
 		}
 		if (intent.getAction().equals(PLAYBACK_FINISHED) || intent.getAction().equals("com.android.music.playbackcomplete")
@@ -618,16 +620,16 @@ public class ScrobblerService extends Service {
 				mClearNowPlayingTask.execute();
 			}
 			enqueueCurrentTrack();
-			NotificationManager nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-			nm.cancel(1338);
+			//NotificationManager nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+			//nm.cancel(1338);
 		}
 		if (intent.getAction().equals(PLAYBACK_PAUSED) && mCurrentTrack != null) {
 			if(intent.getLongExtra("position", 0) > 0 || !intent.hasExtra("position")) { //Work-around for buggy DoubleTwist player
 				mClearNowPlayingTask = new ClearNowPlayingTask(mCurrentTrack.toRadioTrack());
 				mClearNowPlayingTask.execute();
 				mCurrentTrack = null;
-				NotificationManager nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-				nm.cancel(1338);
+				//NotificationManager nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+				//nm.cancel(1338);
 			}
 		}
 		if (intent.getAction().equals(LOVE) && mCurrentTrack != null) {
